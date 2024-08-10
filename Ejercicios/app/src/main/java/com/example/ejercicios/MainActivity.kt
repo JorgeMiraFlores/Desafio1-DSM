@@ -15,34 +15,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val studentNameInput = findViewById<EditText>(R.id.studentNameInput)
-        val grade1Input = findViewById<EditText>(R.id.grade1Input)
-        val grade2Input = findViewById<EditText>(R.id.grade2Input)
-        val grade3Input = findViewById<EditText>(R.id.grade3Input)
-        val grade4Input = findViewById<EditText>(R.id.grade4Input)
-        val grade5Input = findViewById<EditText>(R.id.grade5Input)
-        val resultTextView = findViewById<TextView>(R.id.resultTextView)
+        val employeeNameInput = findViewById<EditText>(R.id.employeeNameInput)
+        val baseSalaryInput = findViewById<EditText>(R.id.baseSalaryInput)
         val calculateButton = findViewById<Button>(R.id.calculateButton)
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
 
         calculateButton.setOnClickListener {
-            val name = studentNameInput.text.toString().trim()
-            val grade1 = grade1Input.text.toString().toDoubleOrNull()
-            val grade2 = grade2Input.text.toString().toDoubleOrNull()
-            val grade3 = grade3Input.text.toString().toDoubleOrNull()
-            val grade4 = grade4Input.text.toString().toDoubleOrNull()
-            val grade5 = grade5Input.text.toString().toDoubleOrNull()
+            val name = employeeNameInput.text.toString()
+            val baseSalary = baseSalaryInput.text.toString().toDoubleOrNull()
 
-            if (name.isEmpty()) {
-                Toast.makeText(this, "Por favor, ingrese el nombre del estudiante.", Toast.LENGTH_SHORT).show()
-            } else if (grade1 == null || grade2 == null || grade3 == null || grade4 == null || grade5 == null) {
-                Toast.makeText(this, "Por favor, ingrese todas las notas correctamente.", Toast.LENGTH_SHORT).show()
-            } else if (grade1 !in 0.0..10.0 || grade2 !in 0.0..10.0 || grade3 !in 0.0..10.0 || grade4 !in 0.0..10.0 || grade5 !in 0.0..10.0) {
-                Toast.makeText(this, "Las notas deben estar entre 0 y 10.", Toast.LENGTH_SHORT).show()
+            if (name.isBlank() || baseSalary == null) {
+                Toast.makeText(this, "Por favor, ingrese todos los datos correctamente.", Toast.LENGTH_SHORT).show()
             } else {
-                val finalGrade = grade1 * 0.15 + grade2 * 0.15 + grade3 * 0.20 + grade4 * 0.25 + grade5 * 0.25
-                val status = if (finalGrade >= 5.0) "Aprobado" else "Reprobado"
-                resultTextView.text = "Estudiante: $name\nNota Final: %.2f\nEstado: $status".format(finalGrade)
+                val afp = baseSalary * 0.0725
+                val isss = baseSalary * 0.03
+                val renta = calculateRenta(baseSalary)
+
+                val netSalary = baseSalary - afp - isss - renta
+
+                resultTextView.text = """
+                    Empleado: $name
+                    Salario Base: $${"%.2f".format(baseSalary)}
+                    AFP (7.25%): $${"%.2f".format(afp)}
+                    ISSS (3%): $${"%.2f".format(isss)}
+                    Renta: $${"%.2f".format(renta)}
+                    Salario Neto: $${"%.2f".format(netSalary)}
+                """.trimIndent()
             }
+        }
+    }
+
+    private fun calculateRenta(salary: Double): Double {
+        return when {
+            salary <= 472.00 -> 0.0
+            salary <= 895.24 -> (salary - 472.00) * 0.10 + 17.67
+            salary <= 2038.10 -> (salary - 895.24) * 0.20 + 60.00
+            else -> (salary - 2038.10) * 0.30 + 288.57
         }
     }
 }
