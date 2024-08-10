@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Desafio1-DSM</string>
+    <string name="calcular_promedio">Calcular Promedio</string>
+    <string name="nombre_del_estudiante">Nombre del Estudiante</string>
+    <string name="nota_1_15">Nota 1 (15%)</string>
+    <string name="nota_2_15">Nota 2 (15%)</string>
+    <string name="nota_3_20">Nota 3 (20%)</string>
+    <string name="nota_4_25">Nota 4 (25%)</string>
+    <string name="nota_5_25">Nota 5 (25%)</string>
 </resources>
