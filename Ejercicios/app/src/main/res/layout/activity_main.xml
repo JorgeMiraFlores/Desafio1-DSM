@@ -1,33 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize">
+    tools:context=".MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="0dp"
-        android:layout_marginEnd="0dp"
-        android:background="?android:attr/windowBackground"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
 
-    <fragment
-        android:id="@+id/nav_host_fragment_activity_main"
-        android:name="androidx.navigation.fragment.NavHostFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:defaultNavHost="true"
-        app:layout_constraintBottom_toTopOf="@id/nav_view"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <EditText
+        android:id="@+id/studentNameInput"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="32dp"
+        android:autofillHints=""
+        android:hint="@string/nombre_del_estudiante"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+
+        android:textColorHint="#546E7A"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/mobile_navigation" />
+        tools:ignore="MissingConstraints,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/grade1Input"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="40dp"
+        android:autofillHints=""
+        android:hint="@string/nota_1_15"
+        android:inputType="numberDecimal"
+
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/studentNameInput"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/grade3Input"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:autofillHints=""
+        android:hint="@string/nota_3_20"
+        android:inputType="numberDecimal"
+        android:padding="8dp"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grade2Input"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/grade2Input"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:autofillHints=""
+        android:hint="@string/nota_2_15"
+        android:inputType="numberDecimal"
+
+        android:padding="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grade1Input"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/grade4Input"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:autofillHints=""
+        android:hint="@string/nota_4_25"
+        android:inputType="numberDecimal"
+        android:padding="8dp"
+
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grade3Input"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:id="@+id/grade5Input"
+        android:layout_width="375dp"
+        android:layout_height="62dp"
+        android:autofillHints=""
+        android:hint="@string/nota_5_25"
+        android:inputType="numberDecimal"
+        android:padding="8dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grade4Input"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="225dp"
+        android:layout_height="65dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:padding="16dp"
+        android:text="@string/calcular_promedio"
+
+        android:textColor="@android:color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grade5Input"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="407dp"
+        android:layout_height="117dp"
+        android:padding="16dp"
+        android:text=""
+        android:textColor="?attr/colorPrimary"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton"
+        app:layout_constraintVertical_bias="0.589"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

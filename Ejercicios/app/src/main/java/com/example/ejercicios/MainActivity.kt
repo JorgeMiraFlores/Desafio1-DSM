@@ -1,35 +1,48 @@
 package com.example.ejercicios
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.ejercicios.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        val studentNameInput = findViewById<EditText>(R.id.studentNameInput)
+        val grade1Input = findViewById<EditText>(R.id.grade1Input)
+        val grade2Input = findViewById<EditText>(R.id.grade2Input)
+        val grade3Input = findViewById<EditText>(R.id.grade3Input)
+        val grade4Input = findViewById<EditText>(R.id.grade4Input)
+        val grade5Input = findViewById<EditText>(R.id.grade5Input)
+        val resultTextView = findViewById<TextView>(R.id.resultTextView)
+        val calculateButton = findViewById<Button>(R.id.calculateButton)
 
-        val navView: BottomNavigationView = binding.navView
+        calculateButton.setOnClickListener {
+            val name = studentNameInput.text.toString().trim()
+            val grade1 = grade1Input.text.toString().toDoubleOrNull()
+            val grade2 = grade2Input.text.toString().toDoubleOrNull()
+            val grade3 = grade3Input.text.toString().toDoubleOrNull()
+            val grade4 = grade4Input.text.toString().toDoubleOrNull()
+            val grade5 = grade5Input.text.toString().toDoubleOrNull()
 
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
-            )
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+            if (name.isEmpty()) {
+                Toast.makeText(this, "Por favor, ingrese el nombre del estudiante.", Toast.LENGTH_SHORT).show()
+            } else if (grade1 == null || grade2 == null || grade3 == null || grade4 == null || grade5 == null) {
+                Toast.makeText(this, "Por favor, ingrese todas las notas correctamente.", Toast.LENGTH_SHORT).show()
+            } else if (grade1 !in 0.0..10.0 || grade2 !in 0.0..10.0 || grade3 !in 0.0..10.0 || grade4 !in 0.0..10.0 || grade5 !in 0.0..10.0) {
+                Toast.makeText(this, "Las notas deben estar entre 0 y 10.", Toast.LENGTH_SHORT).show()
+            } else {
+                val finalGrade = grade1 * 0.15 + grade2 * 0.15 + grade3 * 0.20 + grade4 * 0.25 + grade5 * 0.25
+                val status = if (finalGrade >= 5.0) "Aprobado" else "Reprobado"
+                resultTextView.text = "Estudiante: $name\nNota Final: %.2f\nEstado: $status".format(finalGrade)
+            }
+        }
     }
 }
